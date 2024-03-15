@@ -40,7 +40,7 @@ void CheckPlayerColor() {
         visId = 0;
         if ((@vis = VehicleState::GetVis(app.GameScene, player)) !is null) {
             visId = Dev::GetOffsetUint32(vis, 0);
-            SetVisColor(vis);
+            // SetVisColor(vis);
         }
 
         SetPilotColors(app.GameScene, visId & 0);
@@ -112,6 +112,7 @@ void RunForMenu() {
 CMwNod@ Dev_GetOffsetNodSafe(CMwNod@ nod, uint offset) {
     if (nod is null) return null;
     auto ptr = Dev::GetOffsetUint64(nod, offset);
+    if (ptr % 8 != 0) return null;
     if (ptr < 0x0FFFFFFFFFF) return null;
     if (ptr > 0x3FFFFFFFFFF) return null;
     return Dev::GetOffsetNod(nod, offset);
@@ -120,6 +121,7 @@ CMwNod@ Dev_GetOffsetNodSafe(CMwNod@ nod, uint offset) {
 CMwNod@ Dev_GetOffsetNodSafe(ISceneVis@ nod, uint offset) {
     if (nod is null) return null;
     auto ptr = Dev::GetOffsetUint64(nod, offset);
+    if (ptr % 8 != 0) return null;
     if (ptr < 0x0FFFFFFFFFF) return null;
     if (ptr > 0x3FFFFFFFFFF) return null;
     return Dev::GetOffsetNod(nod, offset);
@@ -128,6 +130,7 @@ CMwNod@ Dev_GetOffsetNodSafe(ISceneVis@ nod, uint offset) {
 CMwNod@ Dev_GetOffsetNodSafe(CSceneVehicleVis@ nod, uint offset) {
     if (nod is null) return null;
     auto ptr = Dev::GetOffsetUint64(nod, offset);
+    if (ptr % 8 != 0) return null;
     if (ptr < 0x0FFFFFFFFFF) return null;
     if (ptr > 0x3FFFFFFFFFF) return null;
     return Dev::GetOffsetNod(nod, offset);
