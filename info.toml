@@ -1,0 +1,9 @@
+[meta]
+name     = "black rally car"
+author   = "XertroV"
+category = "Fun"
+version  = "0.1.5"
+
+[script]
+#__DEFINES__
+dependencies = ["VehicleState"]
