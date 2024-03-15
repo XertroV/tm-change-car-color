@@ -1,4 +1,11 @@
+string[] SafeGameVersions = {"2024-02-26_11_36"};
+
 void Main(){
+    auto app = GetApp();
+    if (SafeGameVersions.Find(app.SystemPlatform.ExeVersion) < 0) {
+        UI::ShowNotification(Meta::ExecutingPlugin().Name, "This plugin is not compatible with this game version. You'll need to wait for a plugin update.");
+        return;
+    }
     InitMenuSceneTablePatternPtr();
     startnew(CheckPlayerColor).WithRunContext(Meta::RunContext::UpdateSceneEngine);
 }
