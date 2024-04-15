@@ -1,13 +1,30 @@
-string[] SafeGameVersions = {"2024-02-26_11_36"};
+string[] SafeGameVersions = {"2024-02-26_11_36", "2024-03-19_14_47", "2024-04-05_20_53"};
 
 void Main(){
     auto app = GetApp();
+    // CPlugFileGen
+    RegisterLoadCallback(0x902F000);
+#if DEV || SIG_DEVELOPER
+#else
     if (SafeGameVersions.Find(app.SystemPlatform.ExeVersion) < 0) {
         UI::ShowNotification(Meta::ExecutingPlugin().Name, "This plugin is not compatible with this game version. You'll need to wait for a plugin update.");
         return;
     }
+#endif
     InitMenuSceneTablePatternPtr();
+    // don't work: main loop, AfterMainLoop,GameLoop
+    // works for char: AfterScripts, NetworkAfterMainLoop, UpdateSceneEngine
+    // startnew(CheckPlayerColor).WithRunContext(Meta::RunContext::UpdateSceneEngine);
+    // startnew(CheckPlayerColor).WithRunContext(Meta::RunContext::NetworkAfterMainLoop);
+    // startnew(CheckPlayerColor).WithRunContext(Meta::RunContext::AfterScripts);
     startnew(CheckPlayerColor).WithRunContext(Meta::RunContext::UpdateSceneEngine);
+}
+
+/** Called when a Nod is loaded from a file. You have to call `RegisterLoadCallback` first before this is called. This callback is meant as an early callback for a loaded nod. If you're not sure whether you need an early callback and you can avoid using this callback, then avoid using this function.
+*/
+void OnLoadCallback(CMwNod@ nod) {
+    if (nod is null) return;
+    print("Load callback: " + Reflection::TypeOf(nod).ID);
 }
 
 void OnDestroyed() { FreeAllAllocated(); }
@@ -71,6 +88,7 @@ void SetPilotColors(ISceneVis@ scene, uint visId) {
         auto fakeNod3 = Dev_GetOffsetNodSafe(fakeNod2, offset + 0x38); // 0xB0
         if (fakeNod3 is null) continue;
         Dev::SetOffset(fakeNod3, 0x210, S_CarColor);
+        // 0x240 is reactor pct?
         @fakeNod3 = null;
         // trace("found vis2: " + i + " (" + Text::Format("%04x", visId) + ") " + Time::Now);
         // break to only set player
@@ -80,10 +98,12 @@ void SetPilotColors(ISceneVis@ scene, uint visId) {
 }
 
 void SetVisColor(CSceneVehicleVis@ vis) {
-    // trace('set vis id: ' + Text::Format('%04x', visId) + ' ' + Time::Now);
+    trace('set vis id: ' + Text::Format('%04x', Dev::GetOffsetUint32(vis, 0)) + ' ' + Time::Now);
     auto fakeNod1 = Dev_GetOffsetNodSafe(vis, 0x70);
     if (fakeNod1 is null) return;
+    trace('got fakeNod1; color: ' + Dev::GetOffsetVec3(fakeNod1, 0x210).ToString() + ' ' + Time::Now);
     Dev::SetOffset(fakeNod1, 0x210, S_CarColor);
+    trace('got fakeNod1; color: ' + Dev::GetOffsetVec3(fakeNod1, 0x210).ToString() + ' ' + Time::Now);
     @fakeNod1 = null;
 }
 
@@ -102,7 +122,7 @@ void RunForMenu() {
     auto viss = VehicleState::GetAllVis(scene);
     if (countMenu < 10) trace('viss: ' + viss.Length);
     for (uint i = 0; i < viss.Length; i++) {
-        SetVisColor(viss[i]);
+        // SetVisColor(viss[i]);
     }
     SetPilotColors(scene, 0);
 }

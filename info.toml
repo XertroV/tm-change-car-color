@@ -6,4 +6,4 @@ version  = "0.1.5"
 
 [script]
 #__DEFINES__
-dependencies = ["VehicleState"]
+dependencies = ["VehicleState", "skids-magician-dev"]

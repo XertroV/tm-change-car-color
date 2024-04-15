@@ -8,6 +8,7 @@ uint64 g_MenuSceneTablePtr = 0;
 void InitMenuSceneTablePatternPtr() {
     g_MenuSceneTablePatternPtr = Dev::FindPattern(MENU_SCENE_TABLE);
     if (g_MenuSceneTablePatternPtr == 0) throw("Failed to find MenuSceneTable pattern");
+    warn("Found menu scene table pattern: " + Text::FormatPointer(g_MenuSceneTablePatternPtr));
     auto offset = Dev::ReadUInt32(g_MenuSceneTablePatternPtr + 3);
     g_MenuSceneTablePtr = g_MenuSceneTablePatternPtr + 7 + offset;
     if (g_MenuSceneTablePtr == 0) throw("Failed to find g_MenuSceneTablePtr");
