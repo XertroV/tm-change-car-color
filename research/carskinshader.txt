@@ -1,0 +1,65 @@
+Trackmania.exe.text+79C6A7 - F3 0F10 00            - movss xmm0,[rax] { this sets car color
+ }
+Trackmania.exe.text+79C6AB - 0F2F C6               - comiss xmm0,xmm6
+Trackmania.exe.text+79C6AE - F3 41 0F11 07         - movss [r15],xmm0
+Trackmania.exe.text+79C6B3 - 76 34                 - jna Trackmania.exe.text+79C6E9
+Trackmania.exe.text+79C6B5 - 8B C6                 - mov eax,esi
+Trackmania.exe.text+79C6B7 - 48 8D 54 24 58        - lea rdx,[rsp+58]
+Trackmania.exe.text+79C6BC - 48 83 C0 2B           - add rax,2B { 43 }
+Trackmania.exe.text+79C6C0 - F3 0F11 44 24 58      - movss [rsp+58],xmm0
+Trackmania.exe.text+79C6C6 - C7 44 24 5C 0000803F  - mov [rsp+5C],3F800000 { 1.00 }
+Trackmania.exe.text+79C6CE - C7 44 24 60 0000803F  - mov [rsp+60],3F800000 { 1.00 }
+Trackmania.exe.text+79C6D6 - 48 8D 04 40           - lea rax,[rax+rax*2]
+Trackmania.exe.text+79C6DA - 48 8D 0C 87           - lea rcx,[rdi+rax*4]
+Trackmania.exe.text+79C6DE - E8 2DE89DFF           - call Trackmania.exe.text+17AF10
+Trackmania.exe.text+79C6E3 - 49 8D 4D 0C           - lea rcx,[r13+0C]
+Trackmania.exe.text+79C6E7 - EB 14                 - jmp Trackmania.exe.text+79C6FD
+Trackmania.exe.text+79C6E9 - C7 43 F8 CDCC4C3F     - mov [rbx-08],3F4CCCCD { 0.80 }
+Trackmania.exe.text+79C6F0 - C7 43 FC CDCC4C3F     - mov [rbx-04],3F4CCCCD { 0.80 }
+Trackmania.exe.text+79C6F7 - C7 03 CDCC4C3F        - mov [rbx],3F4CCCCD { 0.80 }
+Trackmania.exe.text+79C6FD - FF C6                 - inc esi
+Trackmania.exe.text+79C6FF - 49 83 C7 04           - add r15,04 { 4 }
+Trackmania.exe.text+79C703 - 48 83 C3 0C           - add rbx,0C { 12 }
+Trackmania.exe.text+79C707 - 83 FE 02              - cmp esi,02 { 2 }
+Trackmania.exe.text+79C70A - 72 94                 - jb Trackmania.exe.text+79C6A0
+Trackmania.exe.text+79C70C - 33 D2                 - xor edx,edx
+Trackmania.exe.text+79C70E - E8 BDF89DFF           - call Trackmania.exe.text+17BFD0
+
+
+
+
+
+
+
+Trackmania.exe.text+6D05A3 - 48 8B 83 C8010000     - mov rax,[rbx+000001C8] { nopin this disables color
+}
+Trackmania.exe.text+6D05AA - 49 89 46 0C           - mov [r14+0C],rax { This overwrites color in vehicle vis
+}
+Trackmania.exe.text+6D05AE - 41 89 0E              - mov [r14],ecx
+Trackmania.exe.text+6D05B1 - 8B 57 50              - mov edx,[rdi+50]
+Trackmania.exe.text+6D05B4 - 48 8B 8E 78020000     - mov rcx,[rsi+00000278]
+Trackmania.exe.text+6D05BB - E8 A0F8ABFF           - call Trackmania.exe.text+18FE60 { get environ vis thing
+}
+Trackmania.exe.text+6D05C0 - 48 8B 48 40           - mov rcx,[rax+40] { get hms item; at 38: the nod we were using before and still works for character pilot
+}
+Trackmania.exe.text+6D05C4 - 48 89 8F E0000000     - mov [rdi+000000E0],rcx
+Trackmania.exe.text+6D05CB - 48 8B 47 08           - mov rax,[rdi+08]
+Trackmania.exe.text+6D05CF - 48 8B 48 30           - mov rcx,[rax+30]
+Trackmania.exe.text+6D05D3 - 48 89 8F C8000000     - mov [rdi+000000C8],rcx
+Trackmania.exe.text+6D05DA - 8B 57 50              - mov edx,[rdi+50]
+Trackmania.exe.text+6D05DD - 48 8B 8E 78020000     - mov rcx,[rsi+00000278] { get vis dyna
+}
+Trackmania.exe.text+6D05E4 - E8 77F8ABFF           - call Trackmania.exe.text+18FE60
+Trackmania.exe.text+6D05E9 - 48 8B 48 38           - mov rcx,[rax+38]
+Trackmania.exe.text+6D05ED - 48 89 8F D0000000     - mov [rdi+000000D0],rcx
+Trackmania.exe.text+6D05F4 - 8B 57 50              - mov edx,[rdi+50]
+Trackmania.exe.text+6D05F7 - 48 8B 8E 78020000     - mov rcx,[rsi+00000278]
+Trackmania.exe.text+6D05FE - E8 5DF8ABFF           - call Trackmania.exe.text+18FE60
+Trackmania.exe.text+6D0603 - 48 83 C0 4C           - add rax,4C { 76 }
+Trackmania.exe.text+6D0607 - 32 D2                 - xor dl,dl
+Trackmania.exe.text+6D0609 - 48 89 87 D8000000     - mov [rdi+000000D8],rax
+Trackmania.exe.text+6D0610 - 83 BB BC010000 02     - cmp dword ptr [rbx+000001BC],02 { 2 }
+Trackmania.exe.text+6D0617 - 0FB6 8B DC010000      - movzx ecx,byte ptr [rbx+000001DC]
+Trackmania.exe.text+6D061E - 75 10                 - jne Trackmania.exe.text+6D0630
+Trackmania.exe.text+6D0620 - 41 80 FF 01           - cmp r15l,01 { 1 }
+Trackmania.exe.text+6D0624 - 41 B8 00000000        - mov r8d,00000000 { 0 }
